@@ -55,6 +55,11 @@ rect {
     width: 90%;
   }
 
+
+text {
+  font-size: .55em;
+}
+
 }
 
 

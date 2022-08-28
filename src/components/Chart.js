@@ -8,7 +8,7 @@ const [svgW, setSvgW] = useState(600)
 const [svgH] = useState(350)
 useEffect(() => {
     if(!matches){
-        setSvgW(400)
+        setSvgW(380)
     }
 }, [matches])
 
