@@ -97,6 +97,38 @@ export default function CustomPaginationActionsTable(props) {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
   };
+
+  const PaginationFooter = () => {
+    return (
+      <TableFooter>
+        <TableRow>
+          <TablePagination
+            rowsPerPageOptions={[5, 10, 25, { label: "All", value: -1 }]}
+            colSpan={3}
+            count={rows?.length}
+            rowsPerPage={rowsPerPage}
+            page={page}
+            SelectProps={{
+              inputProps: {
+                "aria-label": "rows per page",
+              },
+              native: true,
+            }}
+            onPageChange={handleChangePage}
+            onRowsPerPageChange={handleChangeRowsPerPage}
+            ActionsComponent={TablePaginationActions}
+          />
+        </TableRow>
+      </TableFooter>
+    );
+  };
+
+  const tableHeaders = [
+    "Character name",
+    "Origin name",
+    "Origin dimension",
+    "Poplurity",
+  ];
   if (matches) {
     return (
       <TableContainer component={Paper} className="data-table">
@@ -104,10 +136,9 @@ export default function CustomPaginationActionsTable(props) {
           {matches && (
             <TableHead>
               <TableRow>
-                <TableCell>Character name</TableCell>
-                <TableCell align="center">Origin name</TableCell>
-                <TableCell align="center">Origin dimension</TableCell>
-                <TableCell align="center">Poplurity</TableCell>
+                {tableHeaders.map((header) => (
+                  <TableCell align="center">{header}</TableCell>
+                ))}
               </TableRow>
             </TableHead>
           )}
@@ -136,26 +167,7 @@ export default function CustomPaginationActionsTable(props) {
               </TableRow>
             )}
           </TableBody>
-          <TableFooter>
-            <TableRow>
-              <TablePagination
-                rowsPerPageOptions={[5, 10, 25, { label: "All", value: -1 }]}
-                colSpan={3}
-                count={rows?.length}
-                rowsPerPage={rowsPerPage}
-                page={page}
-                SelectProps={{
-                  inputProps: {
-                    "aria-label": "rows per page",
-                  },
-                  native: true,
-                }}
-                onPageChange={handleChangePage}
-                onRowsPerPageChange={handleChangeRowsPerPage}
-                ActionsComponent={TablePaginationActions}
-              />
-            </TableRow>
-          </TableFooter>
+          <PaginationFooter />
         </Table>
       </TableContainer>
     );
@@ -169,28 +181,7 @@ export default function CustomPaginationActionsTable(props) {
           return <CharCard key={row.id} row={row} />;
         })}
 
-<TableFooter>
-            <TableRow>
-              <TablePagination
-                rowsPerPageOptions={[5, 10, 25, { label: "All", value: -1 }]}
-                colSpan={3}
-                count={rows?.length}
-                rowsPerPage={rowsPerPage}
-                page={page}
-                SelectProps={{
-                  inputProps: {
-                    "aria-label": "rows per page",
-                  },
-                  native: true,
-                }}
-                onPageChange={handleChangePage}
-                onRowsPerPageChange={handleChangeRowsPerPage}
-                ActionsComponent={TablePaginationActions}
-              />
-            </TableRow>
-          </TableFooter>
-
-
+        <PaginationFooter />
       </>
     );
   }

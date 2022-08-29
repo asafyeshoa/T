@@ -2,23 +2,23 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 import { useEffect, useState } from "react";
 
 export default function Chart(props) {
-  const {data} = props
-const matches = useMediaQuery("(min-width:600px)");
-const [svgW, setSvgW] = useState(600)
-const [svgH] = useState(350)
-useEffect(() => {
-    if(!matches){
-        setSvgW(380)
+  const { data } = props;
+  const matches = useMediaQuery("(min-width:600px)");
+  const [svgW, setSvgW] = useState(600);
+  const [svgH] = useState(350);
+  useEffect(() => {
+    if (!matches) {
+      setSvgW(380);
     }
-}, [matches])
+  }, [matches]);
 
-    console.log(data)
-  if(!data) {
-    return (<h3>Loading...</h3>)
+  console.log(data);
+  if (!data) {
+    return <h3>Loading...</h3>;
   }
 
   const x0 = 50;
-  const xAxisLength = svgW- x0 * 2;
+  const xAxisLength = svgW - x0 * 2;
 
   const y0 = 50;
   const yAxisLength = svgH - y0 * 2;
@@ -40,8 +40,11 @@ useEffect(() => {
   const barPlotWidth = xAxisLength / data.length;
 
   return (
-    <svg width={svgW} height={svgH} style={{border: '1px black solid', marginTop: '10px'}}>
-
+    <svg
+      width={svgW}
+      height={svgH}
+      style={{ border: "1px black solid", marginTop: "10px" }}
+    >
       {Array.from({ length: numYTicks }).map((_, index) => {
         const y = y0 + index * (yAxisLength / numYTicks);
 
@@ -56,8 +59,13 @@ useEffect(() => {
           </g>
         );
       })}
-      <text x={x0} y={y0 - 8} textAnchor="middle" style={{marginBottom: '5px'}}>
-      Popularity
+      <text
+        x={x0}
+        y={y0 - 8}
+        textAnchor="middle"
+        style={{ marginBottom: "5px" }}
+      >
+        Popularity
       </text>
 
       {data.map(([char, dataY], index) => {

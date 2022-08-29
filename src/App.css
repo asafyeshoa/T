@@ -16,6 +16,7 @@
   background-color: #44b4ca;
   flex-direction: column;
   align-items: center;
+  min-height: 70vh;
 }
 
 .data-table {
@@ -35,9 +36,8 @@
   margin-bottom: 15px;
 }
 
-
 text {
-  font-size: .7em;
+  font-size: 0.7em;
   fill: black;
 }
 
@@ -50,19 +50,11 @@ rect {
     width: 75%;
   }
 
-
   .home-page {
     width: 90%;
   }
 
-
-text {
-  font-size: .55em;
+  text {
+    font-size: 0.55em;
+  }
 }
-
-}
-
-
-
-
-

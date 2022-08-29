@@ -5,6 +5,7 @@ import axios from "axios";
 export default function App() {
   const [apiData, setApiData] = useState(null);
   const [chartData, setChartData] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   function compare(a, b) {
     if (a.data.episode.length > b.data.episode.length) {
@@ -18,6 +19,7 @@ export default function App() {
 
   useEffect(() => {
     async function getData() {
+      setLoading(true);
       const stateValue = [];
       const res = await axios.get("https://rickandmortyapi.com/api/location/1");
       const urls = res.data.residents;
@@ -29,10 +31,16 @@ export default function App() {
           stateValue.push(char.data);
         }
       });
+      setLoading(false);
       setApiData(stateValue);
     }
 
-    if (!apiData) {
+    try {
+      if (!apiData) {
+        getData();
+      }
+    } catch (error) {
+      console.log(error.message);
       getData();
     }
   }, [apiData]);
@@ -48,6 +56,7 @@ export default function App() {
     const chartDataValue = [];
 
     async function getAllChars() {
+      setLoading(true);
       const data = await Promise.all(
         names.map((n) =>
           axios.get(`https://rickandmortyapi.com/api/character/?name=${n}`)
@@ -62,16 +71,23 @@ export default function App() {
           }
         });
       });
+      setLoading(false);
       setChartData(chartDataValue);
     }
-    if (!chartData) {
+
+    try {
+      if (!chartData) {
+        getAllChars();
+      }
+    } catch (error) {
+      console.log(error.message);
       getAllChars();
     }
   }, [chartData]);
 
   return (
     <div className="App">
-      <Home apiData={apiData} chartData={chartData} />
+      <Home apiData={apiData} chartData={chartData} loading={loading} />
     </div>
   );
 }

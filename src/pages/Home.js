@@ -1,7 +1,9 @@
 import PaginationTable from "../components/PaginationTable";
 import Chart from "../components/Chart";
+
 export default function Home(props) {
-  const { apiData, chartData } = props;
+  const { apiData, chartData, loading } = props;
+
   return (
     <div className="home-page">
       <img
@@ -9,8 +11,14 @@ export default function Home(props) {
         alt="title"
         className="title-image"
       />
-      <PaginationTable rows={apiData || []} />
-      <Chart data={chartData} />
+      {loading ? (
+        <h2>Loading...</h2>
+      ) : (
+        <>
+          <PaginationTable rows={apiData || []} />
+          <Chart data={chartData} />
+        </>
+      )}
     </div>
   );
 }

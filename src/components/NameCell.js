@@ -20,9 +20,8 @@ export default function NameCell(props) {
 
   return (
     <TableCell component="th" scope="row" className="name-cell">
-      <img src={imageSrc} height="38" width="38" alt="char" />
+      <img src={imageSrc} height="70" width="70" alt="char" />
       {name}
     </TableCell>
   );
 }
-
